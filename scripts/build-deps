@@ -51,7 +51,6 @@ fi
     --disable-mmx \
     --enable-debug=3 \
     --enable-gpl \
-    --enable-libx264 \
     $CONFFLAGS \
     --prefix="$PYAV_LIBRARY_PREFIX" \
     || exit 2
