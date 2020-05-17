@@ -9,8 +9,11 @@ cdef extern from "pyav/config.h" nogil:
 include "libavutil/avutil.pxd"
 include "libavutil/channel_layout.pxd"
 include "libavutil/dict.pxd"
+include "libavutil/error.pxd"
 include "libavutil/frame.pxd"
 include "libavutil/samplefmt.pxd"
+include "libavutil/buffer.pxd"
+include "libavutil/hwcontext.pxd"
 
 include "libavcodec/avcodec.pxd"
 include "libavdevice/avdevice.pxd"

@@ -17,8 +17,16 @@ We are operating with `semantic versioning <http://semver.org>`_.
     are merged into the "default" branch, currently "develop").
 
 
-HEAD
-----
+v7.0.0.dev0
+-----------
+
+Major:
+
+- Drop support for FFmpeg < 4.0
+
+Minor:
+
+- Users can disable the logging system to avoid lockups in sub-interpreters. (:issue:`545`)
 
 
 v6.2.0

@@ -2,7 +2,7 @@ from av.audio.format cimport get_audio_format
 from av.audio.layout cimport get_audio_layout
 from av.audio.plane cimport AudioPlane
 from av.deprecation import renamed_attr
-from av.utils cimport err_check
+from av.error cimport err_check
 
 
 cdef object _cinit_bypass_sentinel
@@ -50,8 +50,11 @@ cdef class AudioFrame(Frame):
         self.ptr.format = <int>format
         self.ptr.channel_layout = layout
 
-        # HACK: It really sucks to do this twice.
+        # Sometimes this is called twice. Oh well.
         self._init_user_attributes()
+
+        # Audio filters need AVFrame.channels to match number of channels from layout.
+        self.ptr.channels = self.layout.nb_channels
 
         cdef size_t buffer_size
         if self.layout.channels and nb_samples:

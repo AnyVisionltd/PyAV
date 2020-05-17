@@ -18,7 +18,7 @@ if [[ ! "$PYAV_LIBRARY" ]]; then
     if [[ "$1" ]]; then
         PYAV_LIBRARY="$1"
     else
-        PYAV_LIBRARY=ffmpeg-4.0
+        PYAV_LIBRARY=ffmpeg-4.2
         echo "No \$PYAV_LIBRARY set; defaulting to $PYAV_LIBRARY"
     fi
 fi
@@ -39,15 +39,16 @@ fi
 export PYAV_PYTHON
 export PYAV_PIP="${PYAV_PIP-$PYAV_PYTHON -m pip}"
 
-if [[ "$TRAVIS" ]]; then
+if [[ "$GITHUB_ACTION" || "$TRAVIS" ]]; then
 
-    # Travis as a very self-contained environment. Lets just work in that.
-    echo "We're on Travis, so not setting up another virtualenv."
+    # GitHub/Travis as a very self-contained environment. Lets just work in that.
+    echo "We're on CI, so not setting up another virtualenv."
 
     if [[ "$TRAVIS_PYTHON_VERSION" = "2.7" || "$TRAVIS_PYTHON_VERSION" = "pypy" ]]; then
         PYAV_PYTHON=python
         PYAV_PIP=pip
     fi
+
 else
 
     export PYAV_VENV_NAME="$(uname -s).$(uname -r).$("$PYAV_PYTHON" -c '

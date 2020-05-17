@@ -6,8 +6,9 @@ cimport libav as lib
 
 
 from av.codec.context cimport wrap_codec_context
+from av.error cimport err_check
 from av.packet cimport Packet
-from av.utils cimport err_check, dict_to_avdict, avdict_to_dict, avrational_to_fraction, to_avrational
+from av.utils cimport dict_to_avdict, avdict_to_dict, avrational_to_fraction, to_avrational
 
 from av import deprecation
 
@@ -84,7 +85,7 @@ cdef class Stream(object):
         else:
             self._codec = self._codec_context.codec
 
-        self.codec_context = wrap_codec_context(self._codec_context, self._codec, False)
+        self.codec_context = wrap_codec_context(self._codec_context, self._codec, False, container.hwaccel)
         self.codec_context.stream_index = stream.index
 
     def __repr__(self):
